@@ -1,0 +1,40 @@
+Thread Transmission Protocol
+
+Block numbers start at 1 and go to 127 then roll over
+
+Receive file from host
+
+
+To begin transmission:
+
+        Host Sends: (Esc T)
+                    *
+                    (Filename)
+                    CR
+
+    Terminal Sends: Y(CR) or N(CR)
+
+
+For each packet:
+
+        Host sends:
+            1 byte          ESC
+            1 byte          T
+            1 byte          NULL
+            3 bytes         0 filled block size
+	    3 bytes         0 filled block number
+            varies          data
+            6 bytes         0 filled checksum
+
+    Terminal Sends: Y(CR) or N(CR)
+
+
+To end Transmission:
+
+        Host Sends:
+            1 byte          ESC
+            1 byte          T
+            1 byte          ESC
+            1 byte          Q
+
+    Terminal Sends: Y(CR) or N(CR)

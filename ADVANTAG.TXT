@@ -1,0 +1,15 @@
+Advantages my program has over Thread:
+
+1. Will not lock up if you press Escape at the Login
+2. You can dial in no matter what screen the user is in. It will not allow
+   garbage such as "CONNECT 9600" to be entered as if the user typed it in.
+3. It will draw the remote screen for you the second you dial in.
+4. When you exit the slave menu it will redraw the screen correctly.
+5. When the remote screen is re-enabled the remote screen will be redrawn.
+6. It only shows the title screen for 10 seconds or until a key is pressed.
+7. When it shells out to run a program it resets the modem upon return.
+8. It resets the modem after the slave port goes offline.
+9. You can log in as root on newer SCO systems without it locking up.
+10. It works correctly at all baud rates.
+11. You can switch to page one correctly when dialed in.
+12. You can get the remote computer to dial you back if the connection is lost

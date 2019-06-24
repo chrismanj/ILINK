@@ -1,0 +1,57 @@
+                                  VT52 NOTES
+
+X CTRL J MOVES DOWN 1 LINE
+X CTRL K MOVES DOWN 1 LINE IN VLINK & TELIX
+X CTRL L MOVES DOWN 1 LINE
+X CTRL Z PRINTS ? ROTATED 180 IN VLINK, TELIX PRINTS ARROW POINTING RIGHT
+
+LOWER CASE LETTERS IN GRAPHICS MODE PRINT THE FOLLOWING-
+        VLINK                                           PROCOMM
+A       HALF FILLED BOX PATTERN                         HALF FILLED BOX PATTERN
+B                                                       T
+C                                                       F
+D                                                       C
+E                                                       L
+F       DEGREE SYMBOL                                   DEGREE SYMBOL
+G       PLUS OVER MINUS                                 PLUS OVER MINUS
+H                                                       N
+I                                                       V
+J       LOWER RIGHT BOX CORNER                          LOWER RIGHT BOX CORNER
+K       UPPER RIGHT BOX CORNER                          UPPER RIGHT BOX CORNER
+L       UPPER LEFT BOX CORNER                           UPPER LEFT BOX CORNER
+M       LOWER LEFT BOX CORNER                           LOWER LEFT BOX CORNER
+N       BOX INTERSECTION                                BOX INTERSECTION
+O                                                       BOX HORIZONTAL LINE
+P                                                       BOX HORIZONTAL LINE
+Q       BOX HORIZONTAL LINE                             BOX HORIZONTAL LINE
+R                                                       BOX HORIZONTAL LINE
+S                                                       BOX HORIZONTAL LINE
+T       HALF BOX INTSERSECTION POINTING RIGHT           HALF BOX INTSERSECTION POINTING RIGHT
+U       HALF BOX INTSERSECTION POINTING LEFT            HALF BOX INTSERSECTION POINTING LEFT
+V       HALF BOX INTSERSECTION POINTING UP              HALF BOX INTSERSECTION POINTING UP
+W       HALF BOX INTSERSECTION POINTING DOWN            HALF BOX INTSERSECTION POINTING DOWN
+X       BOX VERTICAL LINE                               BOX VERTICAL LINE
+Y       LESS THAN OR EQUAL SIGN                         LESS THAN OR EQUAL SIGN
+Z       GREATER THAN OR EQUAL SIGN                      GREATER THAN OR EQUAL SIGN
+
+_       SPACE                                           SPACE
+|       DOUBLE TIDE                                     ONE VBAR WITH = THROUGH IT
+`       DIAMOND                                         DIAMOND
+~       CENTERED DOT                                    LARGE CENTERED DOT
+{                                                       PI SYMBOL
+}                                                       POUND SYMBOL
+
+TELIX RETURNS "Z" WHEN ESC Z IS RECEIVED, PROCOMM RETURNS "/Z"
+
+TAB KEY MOVEMENT-
+
+  TELIX
+    TAB MOVES TO COLUMNS 9, 17, 25, 33, 41, 49, 57, 65, 73, ONCE PAST 73 TAB
+    MOVES 2 SPACES UNLESS THE CURSOR IS IN COLUMN 79 WHERE IT ONLY MOVES TO
+    COLUMN 80. IF IN COLUMN 80 IT MOVES TO COLUMN 1 OF THE NEXT LINE. IT DOES
+    NOT ERASE ANYTHING IT PASSES OVER.
+
+  PROCOMM
+    TAB MOVES TO COLUMNS 9, 17, 25, 33, 41, 49, 57, 65, 73, THEN BACK TO 9 ON THE SAME LINE WITHOUT ERASING ANYTHING IT PASSES OVER
+
+

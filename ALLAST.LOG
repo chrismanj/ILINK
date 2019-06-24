@@ -1,0 +1,90 @@
+TYPE TNB^S^QSLOG.TXT
+File not found - TNBSLOG.TXT                   
+
+C:\EBS\COMPDATA\COMP1VOL>TYPE TNBSLOG.TXT
+File not found - TNBSLOG.TXT                     
+
+C:\EBS\COMPDATA\COMP1VOL>DIR
+
+ Volume in drive C has no label
+ Volume Serial Number is 07CF-0107
+ Directory of C:\EBS\COMPDATA\COMP1VOL
+
+.              <DIR>        05-05-99  3:47p .
+..             <DIR>        05-05-99  3:47p ..
+HISTORY        <DIR>        05-05-99  3:47p history
+TNBSXMIT DAT            51  05-05-99  3:47p TNBSxmit.dat
+TNBSXMIT LOG         2,128  05-05-99  3:48p TNBSXMIT.LOG
+TNBSLAST RMT             3  05-05-99  3:47p TNBSLAST.RMT
+         3 file(s)          2,182 bytes
+         3 dir(s)       11,287.05 MB free
+
+C:\EBS\COMPDATA\COMP1VOL>TYPE TNBSXMIT.LOG
+Dialing Tennessee Blue Cross
+ 28800 LAPM COMPRESSED
+Auto-sensing...
+  
+
+                                  Welcome
+
+                         BLUE CROSS BLUE SHIELD (#99169409)
+
+                       ONLINE 28800 BAUD AT 16:42 05-MAY-99
+
+                ษออออออออออออออออออออออออออออออออออออออออออป
+                บ                                          บ
+                บ    Electronic Provider Services Network  บ
+                บ                                          บ
+                บ           Bulletin Board System          บ
+                บ                                          บ
+                ศออออออออออออออออออออออออออออออออออออออออออผ                    
+Please enter your User-ID: ALLER ASTH
+
+Enter your password: *****
+
+Greetings, Aller Asth, glad to see you back again.
+We are not connected with WorldLink at the moment.
+
+Please select one of the following:
+
+   A ... Send Files to BCBSTN
+   B ... Receive Files from BCBSTN
+   C ... Electronic mail
+   D ... BCBSTN Information
+   X ... Exit
+
+TOP (TOP)
+Make your selection (A,B,C,D,? for help, or X to exit): A
+
+Please select one of the following:
+
+   A ... Send Claim Files to BCBSTN
+   B ... Send Other Files to BCBSTN
+
+Send to Blue Cross (MNUSND)
+Make your selection (A,B,? for help, or X to exit): A
+
+Upload to the CLAIMS Library
+
+Maximum Library size: 500000000 bytes, 10000 files
+ Maximum upload size: 500000000 bytes
+
+ <file name> ... Upload a file to this Library
+           * ... Upload multiple files at once
+           M ... Modify or add descriptions to files you have uploaded
+           X ... EXIT
+
+Name of file to upload (or '*' for multiple files): E_PTAAC1.TNS
+
+To start uploading E_PTAAC1.TNS, type:
+
+   A ... ASCII                           B ... YMODEM Batch
+   M ... XMODEM-Checksum                 G ... YMODEM-g
+   C ... XMODEM-CRC                      Z ... ZMODEM
+   1 ... XMODEM-1K                       K ... Kermit / Super Kermit
+
+   Please do not use automatic logoff feature "!"
+ 
+Your choice (or 'X' to exit):
+Telix 
+C:\EBS\COMPDATA\COMP1VOL>
