@@ -33,7 +33,7 @@ struct fkey_names
 
 static void AskAndLoadSetup    (void);
 static void NotImplemented     (void);
-       void ShowChOnStatusBar  (int, int);
+       void ShowChOnStatusBar  (int, BYTE);
 static void ShowSerialStatus   (s_com_port *, int);
        void ShowStrOnStatusBar (int, const char *);
 static void ShowStatusMaster   (void);

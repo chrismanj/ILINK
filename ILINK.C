@@ -46,7 +46,7 @@
 #include "..\common\include\video.h"
 #include "..\common\include\chrgraph.h"
 #include "..\common\include\jscio.h"
-#include "..\common\include\doublell.h"
+#include "..\common\include\kdoublll.h"
 #include "..\common\include\intrface.h"
 #include "..\common\include\fileio.h"
 #include "..\common\include\jsctime.h"
@@ -56,14 +56,14 @@
 #include "..\common\include\mem.h"
 #include "..\filexfer\include\xmodem.h"
 #include "..\filexfer\include\kermit.h"
-#include "..\ilink\include\termobj.h"
-#include "..\ilink\include\c332.h"
-#include "..\ilink\include\vt52.h"
-#include "..\ilink\include\vt100.h"
-#include "..\ilink\include\c332e.h"
-#include "..\ilink\include\ilink.h"
-#include "..\ilink\include\ansi.h"
-#include "..\ilink\include\pcnansi.h"
+#include "include\termobj.h"
+#include "include\c332.h"
+#include "include\vt52.h"
+#include "include\vt100.h"
+#include "include\c332e.h"
+#include "include\ilink.h"
+#include "include\ansi.h"
+#include "include\pcnansi.h"
 
 #define BOTROW 24
 #define COLS 80
@@ -72,119 +72,176 @@
 
 /* Menu choices for various menus */
 
-s_choice_items colors[16] = {{"Black", 'B'}, {"Blue", 'u'}, {"Green", 'G'}, {"Cyan", 'C'}, {"Red", 'R'}, {"Magenta", 'M'}, {"Brown", 'o'}, {"White", 'W'}, {"Gray", 'a'}, {"Lt Blue", 't'}, {"Lt Green", 'e'}, {"Lt Cyan", 'L'}, {"Lt Red", 'd'}, {"Lt Magenta", 'n'}, {"Yellow", 'Y'}, {"Brt White", 'h'}};
+s_choice_items colors[16] = {
+  {"Black", 'B'},
+  {"Blue", 'u'},
+  {"Green", 'G'},
+  {"Cyan", 'C'},
+  {"Red", 'R'},
+  {"Magenta", 'M'},
+  {"Brown", 'o'},
+  {"White", 'W'},
+  {"Gray", 'a'},
+  {"Lt Blue", 't'},
+  {"Lt Green", 'e'},
+  {"Lt Cyan", 'L'},
+  {"Lt Red", 'd'},
+  {"Lt Magenta", 'n'},
+  {"Yellow", 'Y'},
+  {"Brt White", 'h'}};
 
-s_choice_items com_ports[] = {{"COM1", '1'}, {"COM2", '2'}, {"COM3", '3'}, {"COM4", '4'}};
+s_choice_items com_ports[] = {
+  {"COM1", '1'},
+  {"COM2", '2'},
+  {"COM3", '3'},
+  {"COM4", '4'}};
 
-s_choice_items parities[] = {{"None", 'N'}, {"Odd", 'O'}, {"Even", 'E'}, {"Mark", 'M'}, {"Space", 'S'}};
+s_choice_items parities[] = {
+  {"None", 'N'},
+  {"Odd", 'O'},
+  {"Even", 'E'},
+  {"Mark", 'M'},
+  {"Space", 'S'}};
 
-s_choice_items bauds[] = {{"300", '3'}, {"1200", '2'}, {"2400", '4'}, {"9600", '6'}, {"19200", '9'}, {"38400", '8'}, {"57600", '7'}, {"115200", '1'}};
+s_choice_items bauds[] = {
+  {"300", '3'},
+  {"1200", '2'},
+  {"2400", '4'},
+  {"9600", '6'},
+  {"19200", '9'},
+  {"38400", '8'},
+  {"57600", '7'},
+  {"115200", '1'}};
 
-s_choice_items data_lengths[] = {{"5 bits", '5'}, {"6 bits", '6'}, {"7 bits", '7'}, {"8 bits", '8'}};
+s_choice_items data_lengths[] = {
+  {"5 bits", '5'},
+  {"6 bits", '6'},
+  {"7 bits", '7'},
+  {"8 bits", '8'}};
 
-s_choice_items stop_bits[] = {{"1 bit", '1'}, {"2 bits", '2'}};
+s_choice_items stop_bits[] = {
+  {"1 bit", '1'},
+  {"2 bits", '2'}};
 
-s_choice_items interrupts[] = {{"IRQ 0", '0'}, {"IRQ 1", '1'}, {"IRQ 2", '2'}, {"IRQ 3", '3'}, {"IRQ 4", '4'}, {"IRQ 5", '5'}, {"IRQ 6", '6'}, {"IRQ 7", '7'}};
+s_choice_items interrupts[] = {
+  {"IRQ 0", '0'},
+  {"IRQ 1", '1'},
+  {"IRQ 2", '2'},
+  {"IRQ 3", '3'},
+  {"IRQ 4", '4'},
+  {"IRQ 5", '5'},
+  {"IRQ 6", '6'},
+  {"IRQ 7", '7'}};
 
-s_choice_items protocols[] = {{"XModem", 'X'}, {"XModem 1K", '1'}, {"YModem", 'Y'}, {"ZModem", 'Z'}, {"Kermit", 'K'}};
+s_choice_items protocols[] = {
+  {"XModem", 'X'},
+  {"XModem 1K", '1'},
+  {"YModem", 'Y'},
+  {"ZModem", 'Z'},
+  {"Kermit", 'K'}};
 
-s_choice_items exit_choices[] = {{"Yes", 'Y'}, {"No", 'N'}, {"Yes and Hang Up", 'H'}};
+s_choice_items exit_choices[] = {
+  {"Yes", 'Y'},
+  {"No", 'N'},
+  {"Yes and Hang Up", 'H'}};
 
-s_choice_items function_key_choices[] = {{"Load Function Keys", 'L'},
-                                         {"Save Function Keys", 'S'},
-                                         {"Add/Edit A Function Key", 'A'},
-                                         {"Delete a Function Key", 'D'},
-                                         {"Unload Function Keys", 'U'},
-                                         {"Copy Function Key", 'C'}};
+s_choice_items function_key_choices[] = {
+  {"Load Function Keys", 'L'},
+  {"Save Function Keys", 'S'},
+  {"Add/Edit A Function Key", 'A'},
+  {"Delete a Function Key", 'D'},
+  {"Unload Function Keys", 'U'},
+  {"Copy Function Key", 'C'}};
 
-s_fkey_names fkey_names[] = {{"F1", 0x013b},
-                             {"SH+F1", 0x093b},
-                             {"CTL+F1", 0x213b},
-                             {"ALT+F1", 0x113b},
-                             {"F2", 0x013c},
-                             {"SH+F2", 0x093c},
-                             {"CTL+F2", 0x213c},
-                             {"ALT+F2", 0x113c},
-                             {"F3", 0x013d},
-                             {"SH+F3", 0x093d},
-                             {"CTL+F3", 0x213d},
-                             {"ALT+F3", 0x113d},
-                             {"F4", 0x013e},
-                             {"SH+F4", 0x093e},
-                             {"CTL+F4", 0x213e},
-                             {"ALT+F4", 0x113e},
-                             {"F5", 0x013f},
-                             {"SH+F5", 0x093f},
-                             {"CTL+F5", 0x213f},
-                             {"ALT+F5", 0x113f},
-                             {"F6", 0x0140},
-                             {"SH+F6", 0x0940},
-                             {"CTL+F6", 0x2140},
-                             {"ALT+F6", 0x1140},
-                             {"F7", 0x0141},
-                             {"SH+F7", 0x0941},
-                             {"CTL+F7", 0x2141},
-                             {"ALT+F7", 0x1141},
-                             {"F8", 0x0142},
-                             {"SH+F8", 0x0942},
-                             {"CTL+F8", 0x2142},
-                             {"ALT+F8", 0x1142},
-                             {"F9", 0x0143},
-                             {"SH+F9", 0x0943},
-                             {"CTL+F9", 0x2143},
-                             {"ALT+F9", 0x1143},
-                             {"F10", 0x0144},
-                             {"SH+F10", 0x0944},
-                             {"CTL+F10", 0x2144},
-                             {"ALT+F10", 0x1144},
-                             {"F11", 0x0157},
-                             {"SH+F11", 0x0957},
-                             {"CTL+F11", 0x2157},
-                             {"ALT+F11", 0x1157},
-                             {"F12", 0x0158},
-                             {"SH+F12", 0x0958},
-                             {"CTL+F12", 0x2158},
-                             {"ALT+F12", 0x1158},
-                             {"INS", 0x0552},
-                             {"SH+INS", 0x0d52},
-                             {"CTL+INS", 0x2552},
-                             {"ALT+INS", 0x1552},
-                             {"HOME", 0x0547},
-                             {"SH+HOME", 0x0d47},
-                             {"CTL+HOME", 0x2547},
-                             {"ALT+HOME", 0x1547},
-                             {"PGUP", 0x0549},
-                             {"SH+PGUP", 0x0d49},
-                             {"CTL+PGUP", 0x2549},
-                             {"ALT+PGUP", 0x1549},
-                             {"DEL", 0x047f},
-                             {"SH+DEL", 0x0d53},
-                             {"CTL+DEL", 0x2553},
-                             {"ALT+DEL", 0x1553},
-                             {"END", 0x054f},
-                             {"SH+END", 0x0d4f},
-                             {"CTL+END", 0x254f},
-                             {"ALT+END", 0x154f},
-                             {"PGDN", 0x0551},
-                             {"SH+PGDN", 0x0d51},
-                             {"CTL+PGDN", 0x2551},
-                             {"ALT+PGDN", 0x1551},
-                             {"UP", 0x0548},
-                             {"SH+UP", 0x0d48},
-                             {"CTL+UP", 0x2548},
-                             {"ALT+UP", 0x1548},
-                             {"DN", 0x0550},
-                             {"SH+DN", 0x0d50},
-                             {"CTL+DN", 0x2550},
-                             {"ALT+DN", 0x1550},
-                             {"LEFT", 0x054b},
-                             {"SH+LEFT", 0x0d4b},
-                             {"CTL+LEFT", 0x254b},
-                             {"ALT+LEFT", 0x154b},
-                             {"RIGHT", 0x054d},
-                             {"SH+RIGHT", 0x0d4d},
-                             {"CTL+RIGHT", 0x254d},
-                             {"ALT+RIGHT", 0x154d}};
+s_fkey_names fkey_names[] = {
+  {"F1", 0x013b},
+  {"SH+F1", 0x093b},
+  {"CTL+F1", 0x213b},
+  {"ALT+F1", 0x113b},
+  {"F2", 0x013c},
+  {"SH+F2", 0x093c},
+  {"CTL+F2", 0x213c},
+  {"ALT+F2", 0x113c},
+  {"F3", 0x013d},
+  {"SH+F3", 0x093d},
+  {"CTL+F3", 0x213d},
+  {"ALT+F3", 0x113d},
+  {"F4", 0x013e},
+  {"SH+F4", 0x093e},
+  {"CTL+F4", 0x213e},
+  {"ALT+F4", 0x113e},
+  {"F5", 0x013f},
+  {"SH+F5", 0x093f},
+  {"CTL+F5", 0x213f},
+  {"ALT+F5", 0x113f},
+  {"F6", 0x0140},
+  {"SH+F6", 0x0940},
+  {"CTL+F6", 0x2140},
+  {"ALT+F6", 0x1140},
+  {"F7", 0x0141},
+  {"SH+F7", 0x0941},
+  {"CTL+F7", 0x2141},
+  {"ALT+F7", 0x1141},
+  {"F8", 0x0142},
+  {"SH+F8", 0x0942},
+  {"CTL+F8", 0x2142},
+  {"ALT+F8", 0x1142},
+  {"F9", 0x0143},
+  {"SH+F9", 0x0943},
+  {"CTL+F9", 0x2143},
+  {"ALT+F9", 0x1143},
+  {"F10", 0x0144},
+  {"SH+F10", 0x0944},
+  {"CTL+F10", 0x2144},
+  {"ALT+F10", 0x1144},
+  {"F11", 0x0157},
+  {"SH+F11", 0x0957},
+  {"CTL+F11", 0x2157},
+  {"ALT+F11", 0x1157},
+  {"F12", 0x0158},
+  {"SH+F12", 0x0958},
+  {"CTL+F12", 0x2158},
+  {"ALT+F12", 0x1158},
+  {"INS", 0x0552},
+  {"SH+INS", 0x0d52},
+  {"CTL+INS", 0x2552},
+  {"ALT+INS", 0x1552},
+  {"HOME", 0x0547},
+  {"SH+HOME", 0x0d47},
+  {"CTL+HOME", 0x2547},
+  {"ALT+HOME", 0x1547},
+  {"PGUP", 0x0549},
+  {"SH+PGUP", 0x0d49},
+  {"CTL+PGUP", 0x2549},
+  {"ALT+PGUP", 0x1549},
+  {"DEL", 0x047f},
+  {"SH+DEL", 0x0d53},
+  {"CTL+DEL", 0x2553},
+  {"ALT+DEL", 0x1553},
+  {"END", 0x054f},
+  {"SH+END", 0x0d4f},
+  {"CTL+END", 0x254f},
+  {"ALT+END", 0x154f},
+  {"PGDN", 0x0551},
+  {"SH+PGDN", 0x0d51},
+  {"CTL+PGDN", 0x2551},
+  {"ALT+PGDN", 0x1551},
+  {"UP", 0x0548},
+  {"SH+UP", 0x0d48},
+  {"CTL+UP", 0x2548},
+  {"ALT+UP", 0x1548},
+  {"DN", 0x0550},
+  {"SH+DN", 0x0d50},
+  {"CTL+DN", 0x2550},
+  {"ALT+DN", 0x1550},
+  {"LEFT", 0x054b},
+  {"SH+LEFT", 0x0d4b},
+  {"CTL+LEFT", 0x254b},
+  {"ALT+LEFT", 0x154b},
+  {"RIGHT", 0x054d},
+  {"SH+RIGHT", 0x0d4d},
+  {"CTL+RIGHT", 0x254d},
+  {"ALT+RIGHT", 0x154d}};
 
 /* Various constant strings used throughout the program */
 
@@ -219,17 +276,17 @@ int stop_bit_vals[] = {STOP_BITS_1, STOP_BITS_2};
 
 /* Set default colors */
 
-WORD status_fore = 0x0a;
-WORD status_back = 0x04;
-WORD status_attrib = 0x4a;
-WORD menu_frame_fore = 0x00;
-WORD menu_frame_back = 0x05;
-WORD menu_text_fore = 0x02;
-WORD menu_text_back = 0x04;
-WORD menu_highlight_fore = 0x01;
-WORD menu_highlight_back = 0x03;
-WORD menu_hotkey_fore = 0x0e;
-WORD menu_hotkey_back = 0x04;
+BYTE status_fore = 0x0a;
+BYTE status_back = 0x04;
+BYTE status_attrib = 0x4a;
+BYTE menu_frame_fore = 0x00;
+BYTE menu_frame_back = 0x05;
+BYTE menu_text_fore = 0x02;
+BYTE menu_text_back = 0x04;
+BYTE menu_highlight_fore = 0x01;
+BYTE menu_highlight_back = 0x03;
+BYTE menu_hotkey_fore = 0x0e;
+BYTE menu_hotkey_back = 0x04;
 
 /* Set default options */
 
@@ -348,7 +405,7 @@ void ShowStrOnStatusBar(int col, const char *text)
 
 \******************************************************************************/
 
-void ShowChOnStatusBar(int col, int ch)
+void ShowChOnStatusBar(int col, BYTE ch)
 {
   OutCharAt(BOTROW, col, ch);
 }
@@ -456,7 +513,7 @@ void RefreshStatusBar(void)
   {
     ClearStatusBar();
     for (x = 0; x < 11; x++)
-      ShowChOnStatusBar(vbarpos[x], '³');
+      ShowChOnStatusBar(vbarpos[x], '|');
     ShowStatusMaster();
     ShowStrOnStatusBar(4, bauds[master_baud].text);
     ShowChOnStatusBar(11, *data_lengths[master_data_length].text);
@@ -904,7 +961,7 @@ static void FunctionKeyDB(void)
         fn_keys = CreateFNKeyTable("default");
       while (done == FALSE)
       {
-        if (DoublyLinkedListGetItemWKeyOf(fn_keys->fn_key_defs, 0) == NULL)
+        if (DLLGetItemByKey(fn_keys->fn_key_defs, 0) == NULL)
           if ((add_fkeydef = malloc(sizeof(s_fkey_def))) != NULL)
           {
             if ((add_fkeydef->definition = malloc((size_t)8)) != NULL)
@@ -928,7 +985,7 @@ static void FunctionKeyDB(void)
             {
               while ((key = GetAKey()) == 0)
                 ;
-              if ((GetFKeyName(key) != NULL && DoublyLinkedListGetItemWKeyOf(fn_keys->fn_key_defs, key) == NULL) || key == KEY_ESC)
+              if ((GetFKeyName(key) != NULL && DLLGetItemByKey(fn_keys->fn_key_defs, key) == NULL) || key == KEY_ESC)
                 got_a_key = TRUE;
             }
             if (key != KEY_ESC)
@@ -948,17 +1005,17 @@ static void FunctionKeyDB(void)
             fkeydef->definition = malloc((size_t)strlen(temp_string));
             fkeydef->definition[0] = 0;
             strcpy(fkeydef->definition, temp_string);
-            DoublyLinkedListResetKey(fn_keys->fn_key_defs, fkeydef->key);
+            DLLResetKey(fn_keys->fn_key_defs, fkeydef->key);
           }
           RestoreRect(box);
         }
         else
           done = TRUE;
       }
-      fkeydef = DoublyLinkedListGetItemWKeyOf(fn_keys->fn_key_defs, 0);
+      fkeydef = DLLGetItemByKey(fn_keys->fn_key_defs, 0);
       free(fkeydef->definition);
       free(fkeydef);
-      DoublyLinkedListDeleteElement(fn_keys->fn_key_defs);
+      DLLDeleteElement(fn_keys->fn_key_defs);
     }
     break;
 
@@ -977,7 +1034,7 @@ static void FunctionKeyDB(void)
           {
             free(fkeydef->definition);
             free(fkeydef);
-            DoublyLinkedListDeleteElement(fn_keys->fn_key_defs);
+            DLLDeleteElement(fn_keys->fn_key_defs);
           }
           else
             done = TRUE;
@@ -1005,19 +1062,19 @@ static void FunctionKeyDB(void)
       {
         while ((key = GetAKey()) == 0)
           ;
-        if (DoublyLinkedListGetItemWKeyOf(fn_keys->fn_key_defs, key) != NULL || key == KEY_ESC)
+        if (DLLGetItemByKey(fn_keys->fn_key_defs, key) != NULL || key == KEY_ESC)
           got_a_key = TRUE;
       }
       if (key != KEY_ESC)
       {
-        srcFKeyDef = DoublyLinkedListGetItemWKeyOf(fn_keys->fn_key_defs, key);
+        srcFKeyDef = DLLGetItemByKey(fn_keys->fn_key_defs, key);
         OutTextAt(13, 2, "Press the key you wish to copy it to.");
         got_a_key = FALSE;
         while (got_a_key == FALSE)
         {
           while ((key = GetAKey()) == 0)
             ;
-          if ((GetFKeyName(key) != NULL && DoublyLinkedListGetItemWKeyOf(fn_keys->fn_key_defs, key) == NULL) || key == KEY_ESC)
+          if ((GetFKeyName(key) != NULL && DLLGetItemByKey(fn_keys->fn_key_defs, key) == NULL) || key == KEY_ESC)
             got_a_key = TRUE;
         }
         if (key != KEY_ESC)
@@ -1103,7 +1160,6 @@ static void ScreenColorDB(void)
             &colors_str, 16, 2, 33, 20, 14, &colors[0], &menu_highlight_fore);
   AddDBItem(db, CHOICE_GADGET, 'i', 9, 2, "Menu Highlight Background.", 9, 29,
             &colors_str, 8, 6, 33, 12, 14, &colors[0], &menu_highlight_back);
-
   AddDBItem(db, CHOICE_GADGET, 'o', 10, 2, "Menu Hotkey Foreground....", 10, 29,
             &colors_str, 16, 2, 33, 20, 14, &colors[0], &menu_hotkey_fore);
   AddDBItem(db, CHOICE_GADGET, 'k', 11, 2, "Menu Hotkey Background....", 11, 29,
@@ -1116,16 +1172,8 @@ static void ScreenColorDB(void)
   SetTextAttrib(menu_text_back << 4 | menu_text_fore);
   SetFillAttrib(menu_text_back << 4 | menu_text_fore);
   SetMenuColors(menu_highlight_back << 4 | menu_highlight_fore, menu_hotkey_back << 4 | menu_hotkey_fore);
-  SetFrameAttrib(menu_frame_back << 4 | menu_frame_fore);
-  SetFillAttrib(menu_text_back << 4 | menu_text_fore);
   status_attrib = status_back << 4 | status_fore;
 
-  /*
-  status_attrib = status_back << 4 | status_fore;
-  SetFrameAttrib(menu_frame_back << 4 | menu_frame_fore);
-  SetFillAttrib(menu_text_back << 4 | menu_text_fore);
-  SetMenuColors(menu_highlight_attrib, menu_hotkey_attrib);
-  */
   RefreshStatusBar();
 }
 
@@ -2540,7 +2588,7 @@ void main(int argc, char *argv[])
         }
         else if ((*term->EvaluateKey)(term, key) == FALSE)
         {
-          fkeydef = DoublyLinkedListGetItemWKeyOf(fn_keys->fn_key_defs, key);
+          fkeydef = DLLGetItemByKey(fn_keys->fn_key_defs, key);
           if (fkeydef != NULL)
           {
             nextFNKeyChar = fkeydef->definition;
